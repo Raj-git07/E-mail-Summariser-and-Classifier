@@ -2,10 +2,6 @@
 
 > A robust, dual-interface (Web Dashboard & CLI Client) AI-powered email intelligence platform. Connect securely to Gmail via OAuth 2.0, auto-classify incoming emails locally using a Random Forest machine learning pipeline, and generate structured summaries using LLMs via the OpenRouter API (GPT-4o-mini).
 
-### 🌐 [Live Demo (Vercel) →](https://ai-email-summarizer-bflqemzrm-pro-gram.vercel.app/)
-
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-Visit%20App-brightgreen?style=for-the-badge&logo=vercel&logoColor=white)](https://ai-email-summarizer-bflqemzrm-pro-gram.vercel.app/)
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com/)
 [![Python](https://img.shields.io/badge/Python-3.9%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
 [![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-Random%20Forest-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white)](https://scikit-learn.org/)
@@ -19,14 +15,14 @@
 
 Managing a busy inbox is time-consuming. **AI Email Summarizer & Classifier** streamlines this process by separating the noise from critical correspondence and delivering concise, actionable digests. It is designed to work in two modes:
 
-1. **Production Serverless Web App:** A stateless Single Page Application (SPA) with a responsive glassmorphic dashboard hosted on Vercel. Authenticates users via Google OAuth 2.0, manages/syncs labels (Inbox, Junk, Important) directly with Gmail, and requests AI summaries on-demand.
+1. **Web App:** A stateless Single Page Application (SPA) with a responsive glassmorphic dashboard. Authenticates users via Google OAuth 2.0, manages/syncs labels (Inbox, Junk, Important) directly with Gmail, and requests AI summaries on-demand.
 2. **Local Machine Learning CLI Client:** A command-line companion that runs a local Python pipeline to pull messages, run them through a Scikit-Learn classifier to predict priority, and manage training/retraining of the model using historical user feedback logs.
 
 ---
 
 ## 🏗️ System Architecture
 
-The diagram below outlines how the components interact in both the **Serverless Web App** mode and the **Local CLI Client** mode.
+The diagram below outlines how the components interact in both the **Web App** mode and the **Local CLI Client** mode.
 
 ```mermaid
 flowchart TB
@@ -36,7 +32,7 @@ flowchart TB
         UI -- OAuth Tokens --> LS
     end
 
-    subgraph Production Cloud [Vercel Serverless Hosting]
+    subgraph Backend [FastAPI Backend]
         FastAPI[FastAPI Backend api/index.py]
     end
 
@@ -106,7 +102,7 @@ The local CLI mode integrates a custom Scikit-Learn Natural Language Processing 
 ## 🛠️ Technical Stack
 
 ### Backend & Core
-*   **FastAPI:** High-performance Python web framework for serverless backend API routing.
+*   **FastAPI:** High-performance Python web framework for API routing.
 *   **Uvicorn:** ASGI web server implementation used for local development.
 *   **Google API Python Client:** Connects to the Gmail REST endpoints (`messages.list`, `messages.get`, `messages.modify`).
 *   **Google Auth Library:** Implements the secure OAuth 2.0 authorization code exchange flow.
@@ -134,28 +130,21 @@ To connect to the Gmail API, you must obtain client credentials:
 4.  Set up the **OAuth Consent Screen** (choose User Type: **External**), and register your Gmail address as a **Test User** (required while the app is in testing status).
 5.  Navigate to **APIs & Services > Credentials** and click **Create Credentials > OAuth Client ID**.
 6.  Select Application Type: **Web application**.
-7.  Add the following **Authorized Redirect URIs**:
-    *   Local Development: `http://localhost:8000/api/oauth_callback`
-    *   Production: `https://your-app-name.vercel.app/api/oauth_callback`
+7.  Add the following **Authorized Redirect URI**:
+    *   `http://localhost:8000/api/oauth_callback`
 8.  Click **Create** and download the client configuration JSON file. Rename this file to `credentials.json` and place it in your project's root folder.
 
 ### Step 2: Setting Up Environment Variables
-Create a `.env` file in the project root to support local runs:
+Create a `.env` file in the project root:
 ```env
 OPENROUTER_API_KEY=your_openrouter_api_key_here
-# If deploying to Vercel, convert credentials.json to a single-line string:
-GOOGLE_CREDENTIALS_JSON={"web":{"client_id":"..."}}
 ```
-> [!TIP]
-> To convert your `credentials.json` into a single-line string, use these quick terminal commands:
-> *   **PowerShell:** `(Get-Content credentials.json -Raw) -replace "\r?\n",""`
-> *   **Bash:** `tr -d '\r\n' < credentials.json`
 
 ---
 
 ## 🚀 Running the Web App
 
-### Option A: Local Run (FastAPI + Uvicorn)
+### Local Run (FastAPI + Uvicorn)
 1.  Clone the repository and install the standard dependencies:
     ```bash
     pip install -r requirements.txt
@@ -166,15 +155,6 @@ GOOGLE_CREDENTIALS_JSON={"web":{"client_id":"..."}}
     ```
 3.  Open your browser and navigate to `http://localhost:8000`.
 
-### Option B: Deploying to Vercel (Production)
-The project is configured for Vercel's serverless runtime using `vercel.json` rewrites.
-1.  Push the project to GitHub (make sure to exclude `credentials.json` and `.env` in your `.gitignore`).
-2.  Import the repository into Vercel.
-3.  Configure the **Environment Variables** in the Vercel Project Settings:
-    *   `OPENROUTER_API_KEY`
-    *   `GOOGLE_CREDENTIALS_JSON` (the single-line client configuration)
-4.  Deploy!
-
 ---
 
 ## 💻 Running the Local CLI Client
@@ -182,7 +162,7 @@ The project is configured for Vercel's serverless runtime using `vercel.json` re
 The CLI uses the local machine learning pipeline to auto-sort your emails.
 
 ### 📥 Install CLI Dependencies
-Because the serverless web backend doesn't require ML libraries, package dependencies like `scikit-learn`, `numpy`, and `joblib` are not in the main `requirements.txt`. Install them manually for CLI usage:
+Because the web backend doesn't require ML libraries, package dependencies like `scikit-learn`, `numpy`, and `joblib` are not in the main `requirements.txt`. Install them manually for CLI usage:
 ```bash
 pip install scikit-learn numpy joblib
 ```
@@ -238,8 +218,8 @@ python -m unittest test_email_summarizer.py
 
 | Problem | Cause | Solution |
 | :--- | :--- | :--- |
-| `redirect_uri_mismatch` | Google client redirect URI does not match the page host. | Update the OAuth Client ID in Google Cloud Console with the exact domain URL: `https://your-domain.vercel.app/api/oauth_callback`. |
-| `Error 401: deleted_client` | Google OAuth Client ID has been deleted or is invalid. | Re-create credentials, update the credentials file, or set `GOOGLE_CREDENTIALS_JSON` environment variable. |
+| `redirect_uri_mismatch` | Google client redirect URI does not match the page host. | Update the OAuth Client ID in Google Cloud Console with the exact redirect URI: `http://localhost:8000/api/oauth_callback`. |
+| `Error 401: deleted_client` | Google OAuth Client ID has been deleted or is invalid. | Re-create credentials and update the `credentials.json` file. |
 | **"App not verified" screen** | Google app is in testing/development state. | Click **Advanced > Go to [App Name] (unsafe)** to proceed. This is standard behavior for sandbox environments. |
 | **Emails fail to fetch** | OAuth refresh token has expired or is invalid. | Remove the credentials locally/clear localStorage and trigger the Google OAuth login flow again to refresh permissions. |
 | `ModuleNotFoundError` on CLI | Missing local ML dependencies. | Run `pip install scikit-learn numpy joblib` before using the CLI. |
@@ -251,5 +231,5 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ---
 <div align="center">
-  <sub>FastAPI • Python • Google APIs • Scikit-Learn • OpenRouter AI • Vanilla JS • Vercel</sub>
+  <sub>FastAPI • Python • Google APIs • Scikit-Learn • OpenRouter AI • Vanilla JS</sub>
 </div>
