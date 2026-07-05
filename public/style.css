@@ -1,0 +1,1073 @@
+:root {
+    /* Gmail Material 3 Light Theme Colors */
+    --bg-app: #f6f8fc;
+    --bg-header: #f6f8fc;
+    --bg-sidebar: #f6f8fc;
+    --bg-workspace: #ffffff;
+    --bg-card: #ffffff;
+    --bg-card-hover: #f2f5f9;
+    --bg-card-selected: #e2ecf7;
+    --bg-search: #eaf1fb;
+    --bg-search-focus: #ffffff;
+    
+    /* Brand Colors */
+    --color-primary: #0b57d0;       /* Gmail active blue */
+    --color-primary-hover: #0842a0;
+    --color-compose: #c2e7ff;       /* Gmail light blue compose */
+    --color-compose-text: #001d35;
+    --color-compose-hover: #b3dbf5;
+    --color-accent: #b3261e;        /* Gmail red accent */
+    --color-accent-hover: #8c1d18;
+    --color-star: #f59e0b;          /* Yellow star */
+    --color-star-empty: #c4c7c5;
+    
+    /* Text Colors */
+    --text-primary: #1f1f1f;
+    --text-secondary: #444746;
+    --text-muted: #5e6278;
+    
+    /* Borders and States */
+    --border-color: #e0e3e7;
+    --border-color-hover: #c4c7c5;
+    --shadow-sm: 0 1px 2px 0 rgba(60,64,67,0.3), 0 1px 3px 1px rgba(60,64,67,0.15);
+    --shadow-md: 0 1px 3px 0 rgba(60,64,67,0.3), 0 4px 8px 3px rgba(60,64,67,0.15);
+    --shadow-lg: 0 4px 8px 3px rgba(0, 0, 0, 0.15), 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+    
+    /* Dimensions and Radii */
+    --radius-full: 1000px;
+    --radius-lg: 16px;
+    --radius-md: 12px;
+    --radius-sm: 8px;
+    
+    --font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    
+    /* Transition presets */
+    --transition-smooth: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-app);
+    color: var(--text-primary);
+    font-family: var(--font-family);
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Master Layout */
+.app-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+}
+
+/* Top App Header styling */
+.app-header {
+    background-color: var(--bg-header);
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    z-index: 10;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 240px;
+}
+
+.menu-toggle {
+    font-size: 1.25rem;
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-full);
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1.4rem;
+    font-weight: 500;
+    letter-spacing: -0.5px;
+}
+
+.gmail-logo {
+    font-size: 1.8rem;
+}
+
+.app-title {
+    color: #444746;
+    font-weight: 600;
+    font-size: 1.25rem;
+}
+
+.header-middle {
+    flex-grow: 1;
+    max-width: 720px;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.search-bar {
+    width: 100%;
+    background-color: var(--bg-search);
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    height: 48px;
+    border-radius: var(--radius-full);
+    transition: var(--transition-smooth);
+}
+
+.search-bar:focus-within {
+    background-color: var(--bg-search-focus);
+    box-shadow: var(--shadow-sm);
+    outline: none;
+}
+
+.search-icon {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    margin-right: 12px;
+}
+
+.search-bar input {
+    width: 100%;
+    border: none;
+    background: transparent;
+    font-size: 1rem;
+    color: var(--text-primary);
+    outline: none;
+}
+
+.search-bar input::placeholder {
+    color: var(--text-secondary);
+}
+
+.clear-btn {
+    background: none;
+    border: none;
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 4px;
+    border-radius: var(--radius-full);
+    transition: var(--transition-smooth);
+}
+
+.clear-btn:hover {
+    background-color: rgba(0,0,0,0.06);
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    min-width: 240px;
+    justify-content: flex-end;
+}
+
+.account-badge {
+    padding: 6px 14px;
+    border-radius: var(--radius-full);
+    font-size: 0.85rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    max-width: 180px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border: 1px solid var(--border-color);
+}
+
+.account-badge.inactive {
+    background-color: #fef3c7;
+    color: #d97706;
+    border-color: #fde68a;
+}
+
+.account-badge.active {
+    background-color: #ecfdf5;
+    color: #059669;
+    border-color: #a7f3d0;
+}
+
+.profile-pic {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-full);
+    background-color: var(--color-primary);
+    color: white;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    box-shadow: var(--shadow-sm);
+}
+
+/* Sidebar and Main Container Panels */
+.app-container {
+    display: flex;
+    flex-grow: 1;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Left Sidebar styling */
+.sidebar {
+    background-color: var(--bg-sidebar);
+    width: 256px;
+    height: 100%;
+    padding: 8px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    flex-shrink: 0;
+    transition: var(--transition-smooth);
+}
+
+.sidebar.collapsed {
+    width: 0;
+    padding: 0;
+    overflow: hidden;
+    opacity: 0;
+}
+
+.sidebar-actions {
+    margin-bottom: 8px;
+}
+
+.btn-compose {
+    background-color: var(--color-compose);
+    color: var(--color-compose-text);
+    padding: 16px 24px;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    font-size: 1rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    width: auto;
+    border: none;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+.btn-compose:hover {
+    background-color: var(--color-compose-hover);
+    box-shadow: var(--shadow-md);
+}
+
+.compose-icon {
+    font-size: 1.25rem;
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.nav-item {
+    background: none;
+    border: none;
+    display: flex;
+    align-items: center;
+    padding: 0 24px 0 12px;
+    height: 32px;
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    color: var(--text-secondary);
+    font-family: var(--font-family);
+    font-size: 0.95rem;
+    font-weight: 500;
+    gap: 12px;
+    transition: var(--transition-smooth);
+}
+
+.nav-item:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    color: var(--text-primary);
+}
+
+.nav-item.active {
+    background-color: #d3e3fd;
+    color: #041e49;
+    font-weight: 700;
+}
+
+.nav-icon {
+    font-size: 1.15rem;
+    display: inline-flex;
+    justify-content: center;
+    width: 20px;
+}
+
+.nav-badge {
+    margin-left: auto;
+    font-size: 0.8rem;
+    font-weight: 700;
+    background-color: rgba(0, 0, 0, 0.08);
+    padding: 2px 8px;
+    border-radius: var(--radius-full);
+    color: var(--text-secondary);
+}
+
+.nav-item.active .nav-badge {
+    background-color: rgba(0,0,0,0.12);
+    color: #041e49;
+}
+
+.sidebar-divider {
+    height: 1px;
+    background-color: var(--border-color);
+    margin: 8px 0;
+}
+
+.sidebar-section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.sidebar-section h3 {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding-left: 8px;
+    margin-bottom: 4px;
+}
+
+.select-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+select {
+    width: 100%;
+    background-color: #ffffff;
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    padding: 10px 16px;
+    border-radius: var(--radius-md);
+    appearance: none;
+    font-family: var(--font-family);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+select:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px rgba(11, 87, 208, 0.2);
+}
+
+.select-wrapper::after {
+    content: "▼";
+    font-size: 0.7rem;
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-secondary);
+    pointer-events: none;
+}
+
+input[type="password"] {
+    background-color: #ffffff;
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    padding: 10px 16px;
+    border-radius: var(--radius-md);
+    font-family: var(--font-family);
+    font-size: 0.9rem;
+    width: 100%;
+    transition: var(--transition-smooth);
+}
+
+input[type="password"]:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px rgba(11, 87, 208, 0.2);
+}
+
+label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    padding-left: 4px;
+}
+
+.help-text {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    padding-left: 4px;
+}
+
+/* Custom Number Selector styling */
+.number-input-container {
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    background-color: #ffffff;
+    overflow: hidden;
+    height: 40px;
+    transition: var(--transition-smooth);
+}
+
+.number-input-container:focus-within {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px rgba(11, 87, 208, 0.2);
+}
+
+.num-btn {
+    background: none;
+    border: none;
+    width: 40px;
+    height: 100%;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.num-btn:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    color: var(--text-primary);
+}
+
+.num-btn:active {
+    background-color: rgba(0,0,0,0.1);
+}
+
+.number-input-container input[type="number"] {
+    flex-grow: 1;
+    width: 100%;
+    border: none;
+    outline: none;
+    text-align: center;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    background: transparent;
+    pointer-events: none; /* Make input readable, click-events via buttons */
+}
+
+/* Remove up/down spinners on input */
+.number-input-container input[type="number"]::-webkit-outer-spin-button,
+.number-input-container input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.number-input-container input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+
+/* Center Workspace Panel */
+.workspace {
+    flex-grow: 1;
+    height: 100%;
+    background-color: var(--bg-workspace);
+    border-radius: var(--radius-lg) 0 0 0;
+    border: 1px solid var(--border-color);
+    border-bottom: none;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* Action Control Bar */
+.action-bar {
+    height: 48px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    background-color: #ffffff;
+    flex-shrink: 0;
+}
+
+.action-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.checkbox-custom {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: var(--color-primary);
+}
+
+.icon-btn {
+    background: none;
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    transition: var(--transition-smooth);
+}
+
+.icon-btn:hover {
+    background-color: rgba(0, 0, 0, 0.06);
+    color: var(--text-primary);
+}
+
+.icon-btn:active {
+    transform: scale(0.95);
+}
+
+.counter {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.action-right {
+    display: flex;
+    align-items: center;
+}
+
+.pagination-info {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+
+
+/* Gmail List Content styling */
+.email-list {
+    flex-grow: 1;
+    overflow-y: auto;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+}
+
+.email-list.empty {
+    justify-content: center;
+}
+
+/* Gmail styled email rows */
+.email-card {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #f1f3f4;
+    padding: 0 16px;
+    height: 48px;
+    gap: 12px;
+    cursor: pointer;
+    transition: background-color 0.1s, box-shadow 0.15s;
+    user-select: none;
+    position: relative;
+    background-color: #ffffff;
+}
+
+.email-card:hover {
+    box-shadow: inset 1px 0 0 #dadce0, inset -1px 0 0 #dadce0, 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
+    z-index: 1;
+}
+
+.email-card.selected {
+    background-color: var(--bg-card-selected);
+}
+
+.email-card-check {
+    display: flex;
+    align-items: center;
+}
+
+/* Star styling */
+.star-btn {
+    font-size: 1.25rem;
+    cursor: pointer;
+    color: var(--color-star-empty);
+    transition: var(--transition-smooth);
+    user-select: none;
+    line-height: 1;
+}
+
+.star-btn.starred {
+    color: var(--color-star);
+}
+
+.star-btn:hover {
+    transform: scale(1.15);
+}
+
+.email-card-content {
+    display: flex;
+    flex-grow: 1;
+    align-items: center;
+    min-width: 0;
+    gap: 16px;
+}
+
+.email-from-col {
+    width: 180px;
+    flex-shrink: 0;
+    font-weight: 500;
+    font-size: 0.95rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--text-primary);
+}
+
+.email-card.unread .email-from-col {
+    font-weight: 700;
+}
+
+.email-info-col {
+    display: flex;
+    flex-grow: 1;
+    min-width: 0;
+    align-items: center;
+    gap: 8px;
+}
+
+.email-subject {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.email-card.unread .email-subject {
+    font-weight: 700;
+}
+
+.email-snippet-separator {
+    color: var(--text-secondary);
+    flex-shrink: 0;
+}
+
+.email-snippet-text {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.email-badge-col {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.badge {
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 4px;
+    text-transform: uppercase;
+}
+
+.badge.important {
+    background-color: #e6f4ea;
+    color: #137333;
+}
+
+.badge.junk {
+    background-color: #fce8e6;
+    color: #c5221f;
+}
+
+.email-date-col {
+    margin-left: auto;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    width: 75px;
+    text-align: right;
+    flex-shrink: 0;
+}
+
+/* Expanded Card view (Gmail mail message details style) */
+.email-card.expanded {
+    height: auto;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 16px;
+    cursor: default;
+    background-color: #ffffff;
+}
+
+.email-card.expanded:hover {
+    box-shadow: 0 1px 3px 0 rgba(60,64,67,0.3), 0 4px 8px 3px rgba(60,64,67,0.15);
+}
+
+.expanded-header-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.expanded-details-container {
+    padding-left: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.expanded-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 8px;
+}
+
+.expanded-subject {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.expanded-body {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #333333;
+    white-space: pre-wrap;
+    background-color: #f8f9fa;
+    padding: 16px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+    max-height: 350px;
+    overflow-y: auto;
+    font-family: inherit;
+}
+
+.expanded-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
+}
+
+.label-dropdown-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.label-dropdown-container select {
+    padding: 4px 24px 4px 8px;
+    width: auto;
+    font-size: 0.8rem;
+    height: 28px;
+}
+
+/* Quick Action Hover Bar styled like Gmail hover options */
+.email-card-actions-hover {
+    display: none;
+    position: absolute;
+    right: 90px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #ffffff;
+    box-shadow: -4px 0 8px 0 #ffffff;
+    height: 100%;
+    align-items: center;
+    padding-left: 16px;
+    gap: 4px;
+    z-index: 2;
+}
+
+.email-card:hover:not(.expanded) .email-card-actions-hover {
+    display: flex;
+}
+
+.email-card:hover:not(.expanded) .email-date-col {
+    opacity: 0;
+}
+
+/* Right Drawer Panel (Gemini AI summary panel styling) */
+.right-panel {
+    width: 360px;
+    height: 100%;
+    background-color: #ffffff;
+    border-left: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    transition: var(--transition-smooth);
+}
+
+.right-panel.closed {
+    width: 0;
+    border-left-width: 0;
+    overflow: hidden;
+    opacity: 0;
+}
+
+.right-panel-header {
+    height: 56px;
+    border-bottom: 1px solid var(--border-color);
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #fcfcfc;
+    flex-shrink: 0;
+}
+
+.panel-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-primary);
+}
+
+.sparkle-icon {
+    color: var(--color-primary);
+    font-size: 1.2rem;
+}
+
+.panel-title h3 {
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.right-panel-content {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 16px;
+    background-color: #fafbfc;
+}
+
+.btn-accent {
+    background-color: var(--color-primary);
+    color: white;
+    border: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    height: 36px;
+    padding: 0 16px;
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-sm);
+    width: auto;
+}
+
+.btn-accent:hover:not(:disabled) {
+    background-color: var(--color-primary-hover);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-accent:disabled {
+    background-color: #e0e0e0;
+    color: #a0a0a0;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+/* Summary text typography */
+.summary-container {
+    line-height: 1.6;
+    font-size: 0.9rem;
+    color: #333333;
+}
+
+.summary-container h2 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-top: 20px;
+    margin-bottom: 8px;
+    color: var(--color-primary);
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 4px;
+}
+
+.summary-container h2:first-of-type {
+    margin-top: 0;
+}
+
+.summary-container ul, .summary-container ol {
+    margin-left: 20px;
+    margin-bottom: 16px;
+}
+
+.summary-container li {
+    margin-bottom: 6px;
+}
+
+/* Side Addon Bar (right strip) */
+.addon-bar {
+    width: 48px;
+    height: 100%;
+    background-color: #ffffff;
+    border-left: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 16px;
+    flex-shrink: 0;
+    z-index: 5;
+}
+
+.addon-btn {
+    background: none;
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    color: var(--text-secondary);
+}
+
+.addon-btn:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.addon-btn.active {
+    background-color: #e8f0fe;
+    color: var(--color-primary);
+}
+
+.addon-icon {
+    font-size: 1.25rem;
+}
+
+/* Empty States */
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    text-align: center;
+    padding: 32px 16px;
+    color: var(--text-secondary);
+    margin: auto;
+}
+
+.empty-icon {
+    font-size: 2.5rem;
+}
+
+.empty-state h3 {
+    color: var(--text-primary);
+    font-size: 1.05rem;
+    font-weight: 600;
+}
+
+.empty-state p {
+    font-size: 0.85rem;
+    max-width: 220px;
+}
+
+/* Loader styling */
+.loader-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(4px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    z-index: 1000;
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.spinner {
+    width: 44px;
+    height: 44px;
+    border: 3px solid rgba(11, 87, 208, 0.15);
+    border-top: 3px solid var(--color-primary);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Toast Notifications */
+.toast {
+    position: fixed;
+    bottom: 24px;
+    left: 24px;
+    background-color: #323232;
+    color: #f5f5f5;
+    padding: 14px 24px;
+    border-radius: var(--radius-sm);
+    box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);
+    z-index: 2000;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: opacity 0.2s, transform 0.2s cubic-bezier(0, 0, 0.2, 1);
+    transform: translateY(0);
+    opacity: 1;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.toast.hidden {
+    transform: translateY(30px);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.hidden {
+    display: none !important;
+}

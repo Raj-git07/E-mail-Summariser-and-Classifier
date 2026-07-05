@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📧 Gmail AI Email Summarizer & Classifier</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-wrapper">
+        <!-- Top Google/Gmail Style Header Bar -->
+        <header class="app-header">
+            <div class="header-left">
+                <button class="icon-btn menu-toggle" id="menu-btn" title="Main menu">☰</button>
+                <div class="logo-container">
+                    <span class="gmail-logo">📧</span>
+                    <span class="app-title">Gmail AI</span>
+                </div>
+            </div>
+            
+            <div class="header-middle">
+                <div class="search-bar">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="search-input" placeholder="Search mail by subject, body, or sender...">
+                    <button class="clear-btn hidden" id="clear-search-btn" title="Clear search">✕</button>
+                </div>
+            </div>
+            
+            <div class="header-right">
+                <div id="active-account-badge" class="account-badge inactive">
+                    ⚠️ No active account
+                </div>
+                <div class="profile-pic" id="profile-initial">G</div>
+            </div>
+        </header>
+
+        <div class="app-container">
+            <!-- Left Sidebar Navigation & Config -->
+            <aside class="sidebar" id="sidebar">
+                <div class="sidebar-actions">
+                    <button id="fetch-btn" class="btn btn-compose" title="Fetch Inbox Emails">
+                        <span class="compose-icon">➕</span>
+                        <span class="compose-text">Fetch Emails</span>
+                    </button>
+                </div>
+                
+                <nav class="sidebar-nav">
+                    <button class="nav-item active" id="nav-inbox">
+                        <span class="nav-icon">📥</span>
+                        <span class="nav-label">Inbox</span>
+                        <span class="nav-badge" id="inbox-count">0</span>
+                    </button>
+                    <button class="nav-item" id="nav-starred">
+                        <span class="nav-icon">★</span>
+                        <span class="nav-label">Important</span>
+                        <span class="nav-badge" id="starred-count">0</span>
+                    </button>
+                    <button class="nav-item" id="nav-spam">
+                        <span class="nav-icon">⚠️</span>
+                        <span class="nav-label">Junk</span>
+                        <span class="nav-badge" id="junk-count">0</span>
+                    </button>
+                </nav>
+
+                <div class="sidebar-divider"></div>
+                
+                <div class="sidebar-section">
+                    <h3>Gmail Accounts</h3>
+                    <div class="select-wrapper">
+                        <select id="account-selector">
+                            <option value="add_new">➕ Add New Account...</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="sidebar-section">
+                    <h3>Settings</h3>
+                    <label for="max-results">Emails to Fetch</label>
+                    <div class="number-input-container">
+                        <button type="button" class="num-btn" id="btn-dec" title="Decrease by 1">-</button>
+                        <input type="number" id="max-results" min="1" max="100" value="5" readonly>
+                        <button type="button" class="num-btn" id="btn-inc" title="Increase by 1">+</button>
+                    </div>
+                    
+                </div>
+            </aside>
+
+            <!-- Center Mailbox Panel -->
+            <main class="workspace">
+                <!-- Action bar / list controls -->
+                <div class="action-bar">
+                    <div class="action-left">
+                        <input type="checkbox" id="select-all" class="checkbox-custom" title="Select all emails">
+                        <button class="icon-btn" id="refresh-list-btn" title="Refresh inbox">🔄</button>
+                        <span id="selection-counter" class="counter">Selected 0 of 0</span>
+                    </div>
+                    <div class="action-right">
+                        <div class="pagination-info" id="pagination-info">1-0 of 0</div>
+                    </div>
+                </div>
+
+
+
+                <!-- Email List container -->
+                <div id="email-list" class="email-list empty">
+                    <div class="empty-state">
+                        <div class="empty-icon">📥</div>
+                        <h3>No emails loaded</h3>
+                        <p>Select or add a Gmail account in the sidebar and click "Fetch Emails".</p>
+                    </div>
+                </div>
+            </main>
+
+            <!-- Collapsible Right Panel for AI Summaries -->
+            <aside class="right-panel open" id="right-panel">
+                <div class="right-panel-header">
+                    <div class="panel-title">
+                        <span class="sparkle-icon">✨</span>
+                        <h3>Gemini AI Summary</h3>
+                    </div>
+                    <button id="summarize-btn" class="btn btn-accent" disabled>✨ Generate AI Summary</button>
+                </div>
+                
+                <div class="right-panel-content">
+                    <div id="summary-content" class="summary-container empty">
+                        <div class="empty-state">
+                            <div class="empty-icon">📝</div>
+                            <h3>Summary will appear here</h3>
+                            <p>Select at least one email from the list and click "Generate AI Summary".</p>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Side Add-on bar to toggle panel (Gmail style side panel bar) -->
+            <div class="addon-bar">
+                <button class="addon-btn active" id="toggle-summary-btn" title="Toggle AI Summary Side Panel">
+                    <span class="addon-icon">✨</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Loading overlay -->
+        <div id="loader" class="loader-container hidden">
+            <div class="spinner"></div>
+            <p id="loader-msg">Fetching emails...</p>
+        </div>
+
+        <!-- Notification Toast -->
+        <div id="toast" class="toast hidden"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
